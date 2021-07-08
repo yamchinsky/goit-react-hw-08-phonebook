@@ -10,6 +10,8 @@ import AppBar from "./Components/AppBar";
 import { authOperations } from "./redux/auth";
 import PrivatRoute from "./Components/PrivatRoute";
 import PublicRoute from "./Components/PublicRoute";
+import AppBar1 from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -21,23 +23,26 @@ export default function App() {
 
   return (
     <Container>
-      <AppBar />
+      <AppBar1 position="static">
+        <AppBar />
+        <Toolbar>
+          <Switch>
+            <PublicRoute exact path="/">
+              <HomeView />
+            </PublicRoute>
+            <PublicRoute path="/register" redirectedTo="/" restricted>
+              <RegisterView />
+            </PublicRoute>
 
-      <Switch>
-        <PublicRoute exact path="/">
-          <HomeView />
-        </PublicRoute>
-        <PublicRoute path="/register" redirectedTo="/" restricted>
-          <RegisterView />
-        </PublicRoute>
-
-        <PublicRoute path="/login" redirectedTo="/" restricted>
-          <LoginView />
-        </PublicRoute>
-        <PrivatRoute path="/contacts" redirectedTo="/login">
-          <ContactsView />
-        </PrivatRoute>
-      </Switch>
+            <PublicRoute path="/login" redirectedTo="/" restricted>
+              <LoginView />
+            </PublicRoute>
+            <PrivatRoute path="/contacts" redirectedTo="/login">
+              <ContactsView />
+            </PrivatRoute>
+          </Switch>
+        </Toolbar>
+      </AppBar1>
     </Container>
   );
 }
