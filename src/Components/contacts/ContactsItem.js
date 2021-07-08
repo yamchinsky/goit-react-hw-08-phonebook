@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ContactsItemStyled } from "./ContactsItemStyled";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { contactRemove } from "../../redux/contacts/contacts-operations";
 import contactsSelectors from "../../redux/contacts/contacts-selectors";
 
-const ContactsItem = ({ name, number, onClickRemove }) => {
+function ContactsItem({ name, number, onClickRemove }) {
   return (
     <li className="contacts-item">
       <p>
@@ -16,9 +16,13 @@ const ContactsItem = ({ name, number, onClickRemove }) => {
       </button>
     </li>
   );
-};
+}
 
-const ContactsList = ({ contacts, onRemove }) => {
+export default function ContactsList() {
+  const dispatch = useDispatch();
+  const contacts = useSelector(contactsSelectors.getVisibleContacts);
+
+  const onRemove = (id) => dispatch(contactRemove(id));
   return (
     contacts.length > 0 && (
       <ContactsItemStyled>
@@ -33,7 +37,7 @@ const ContactsList = ({ contacts, onRemove }) => {
       </ContactsItemStyled>
     )
   );
-};
+}
 
 ContactsItem.propTypes = {
   name: PropTypes.string.isRequired,
@@ -52,12 +56,12 @@ ContactsList.propTypes = {
   onRemove: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  contacts: contactsSelectors.getVisibleContacts(state),
-});
+// const mapStateToProps = (state) => ({
+//   contacts: contactsSelectors.getVisibleContacts(state),
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  onRemove: (contactId) => dispatch(contactRemove(contactId)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   onRemove: (contactId) => dispatch(contactRemove(contactId)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);
+// export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);
