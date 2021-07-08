@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import PhonebookFormItem from "../Components/phonebookForm/PhonebookFormItem";
-import { v4 as uuidv4 } from "uuid";
+
 import FilterItem from "../Components/filter/FilterItem";
 import ContactsList from "../Components/contacts/ContactsItem";
-import { connect } from "react-redux";
+
 import contactsOperations from "../redux/contacts/contacts-operations";
 import { useDispatch, useSelector } from "react-redux";
 import contactsSelectors from "../redux/contacts/contacts-selectors";
